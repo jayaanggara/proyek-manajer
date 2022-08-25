@@ -17,7 +17,7 @@ class CreateFilesTable extends Migration
             $table->id();
             $table->string('name');
             $table->foreignId('project_id')->unsigned();
-            $table->integer('uploader_id');
+            $table->string('file_patch');
             
             $table->foreign('project_id')
                 ->references('id')->on('projects')
