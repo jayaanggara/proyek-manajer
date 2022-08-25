@@ -18,8 +18,6 @@ class CreateReportTemplatesTable extends Migration
             $table->string('name');
             $table->string('deskripsi');
             $table->foreignId('project_id');
-            $table->string('path_file');
-            $table->string('uploader_id');
             $table->timestamps();
             
             $table->foreign('project_id')
