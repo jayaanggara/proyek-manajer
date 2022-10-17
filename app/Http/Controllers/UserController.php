@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Role;
+use App\Models\RoleUser;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -23,13 +25,15 @@ class UserController extends Controller
 
     public function create()
     {
-        
-        return view('admin/user/create');
+        $data = Role::get();
+        return view('admin/user/create', compact('data'));
         
     }
     
     public function store(Request $request)
     {
+        
+
         $this->validate($request,[
             'name' => 'required',
             'email' => 'email|required|unique:users',
@@ -40,16 +44,17 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
+        $user->roles_id = $request->roles_id;
         $user->save();
         \Session::flash('notif', ['level' => 'success','message' => 'Data user berhasil disimpan !']);
         return redirect()->route('list-user');
-        
     }
 
     public function edit($id)
     {
+        $data_role = Role::get();
         $data = User::where('id', $id)->first();
-        return view('admin/user/edit', compact('data'));
+        return view('admin/user/edit', compact('data','data_role'));
         
     }
 

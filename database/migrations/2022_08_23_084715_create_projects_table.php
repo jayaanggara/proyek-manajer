@@ -18,14 +18,18 @@ class CreateProjectsTable extends Migration
             $table->string('project_name');
             $table->string('project_description');
             $table->string('logo');
-            $table->integer('status');
-            $table->string('user');
+            $table->string('status');
+            $table->foreignId('user')->unsigned();
+            $table->foreignId('client')->unsigned();            
             $table->date('start_date');
             $table->date('end_date');
             $table->string('site');
             $table->string('company_name');
             $table->timestamps();
             
+            $table->foreign('user')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('client')->references('id')->on('users')->onDelete('cascade');
+
         });
     }
 

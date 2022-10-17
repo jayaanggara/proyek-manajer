@@ -17,6 +17,7 @@
       <th scope="col">#</th>
       <th scope="col">Name</th>
       <th scope="col">Email</th>
+      <th scope="col">Role</th>
       <th scope="col">Action</th>
     </tr>
   </thead>
@@ -27,6 +28,7 @@
       <th scope="row">{{ $i+1 }}</th>
       <td>{{ $item['name'] }}</td>
       <td>{{ $item['email'] }}</td>
+      <td>{{ $item['role']['name'] }}</td>
       <td>
         <a href="{{ route('edit-user', $item->id) }}" class="btn btn-warning">Edit</a>
         <a href="{{ route('delete-user', $item->id) }}" class="btn btn-danger">Delete</a>

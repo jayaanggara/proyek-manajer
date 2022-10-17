@@ -165,7 +165,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+        Alexusmai\LaravelFileManager\FileManagerServiceProvider::class,
         /*
          * Application Service Providers...
          */

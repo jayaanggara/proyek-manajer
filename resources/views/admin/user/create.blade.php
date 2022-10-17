@@ -25,6 +25,19 @@
     </div>
     <div class="row row-cols-2">
         <div class="mb-3 col">
+            <label for="exampleInputPassword1" class="form-label">Role</label>
+            <select name="roles_id" id="" class="form-control">
+                @foreach ($data as $i => $item)
+                <option value="{{ $item['id'] }}">{{ $item['name'] }}</option>
+                @endforeach
+            </select>
+            @if($errors->has('role'))
+            <span>
+                {{ $errors->first('role') }}
+            </span>
+            @endif
+        </div>
+        <div class="mb-3 col">
             <label for="exampleInputPassword1" class="form-label">Password</label>
             <input type="password" class="form-control" name="password" id="exampleInputPassword1">
             @if($errors->has('password'))

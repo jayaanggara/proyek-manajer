@@ -5,7 +5,7 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+                <div class="sidebar-brand-text mx-3">Project Manajer</div>
             </a>
 
             <!-- Divider -->
@@ -31,7 +31,17 @@
                     <span>Daftar User</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="charts.html">
+                <a class="nav-link" href="{{ route('roles.index') }}">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Daftar Role</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('proyek-type.index') }}">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Daftar Project Type</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('proyek.index') }}">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Daftar Proyek</span></a>
             </li>
@@ -50,7 +60,7 @@
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="charts.html">
+                <a class="nav-link" href="{{ route('task.index') }}">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>List Task</span></a>
             </li>
@@ -59,5 +69,8 @@
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Laporan</span></a>
             </li>
-
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
         </ul>

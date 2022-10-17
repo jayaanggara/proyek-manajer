@@ -17,6 +17,11 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('assets/') }}/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    
+    <link href="{{ asset('assets/') }}/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ asset('tinymce/tinymce.config.css') }}">
 </head>
 
 <body id="page-top">
@@ -113,5 +118,24 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{{ asset('/assets') }}/js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="{{ asset('/assets') }}/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="{{ asset('/assets') }}/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{{ asset('/assets') }}/js/demo/datatables-demo.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    
+    <script>
+        $('.select-multiple').select2({
+  placeholder: 'select option',
+});
+    </script>
+
+    <script src="{{ asset('tinymce/jquery.tinymce.min.js') }}"></script>
+    <script src="{{ asset('tinymce/tinymce.min.js') }}"></script>
+    <script src="{{ asset('tinymce/tinymce.config.js') }}"></script>
 </body>
 </html>

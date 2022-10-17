@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\ProyekController;
+use App\Http\Controllers\ProyekTypesController;
+use App\Http\Controllers\TaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,12 +18,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
-
+// Login
 Auth::routes();
 
+// PROFILE/USERS
 Route::get('/admin', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/user', [App\Http\Controllers\UserController::class, 'index'])->name('list-user');
@@ -33,3 +38,18 @@ Route::get('/edit-user/{id}', [App\Http\Controllers\UserController::class, 'edit
 Route::post('/proses-edit-user/{id}', [App\Http\Controllers\UserController::class, 'update'])->name('proses-edit-user');
 
 Route::get('/delete-user/{id}', [App\Http\Controllers\UserController::class, 'delete'])->name('delete-user');
+
+
+// Proyek
+Route::resource('proyek', ProyekController::class);
+
+// role
+Route::resource('roles', RoleController::class);
+
+// proyek type
+Route::resource('proyek-type', ProyekTypesController::class);
+
+// Task list
+Route::post('task/update-status/{id}', [App\Http\Controllers\TaskController::class, 'UpdateStatus'])->name('task.UpdateStatus');
+Route::get('task/export', [App\Http\Controllers\TaskController::class, 'exportTask'])->name('task.export-task');
+Route::resource('task', TaskController::class);

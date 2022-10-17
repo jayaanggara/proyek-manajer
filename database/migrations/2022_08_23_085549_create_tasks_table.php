@@ -15,14 +15,11 @@ class CreateTasksTable extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
-            $table->string('object');
-            $table->integer('status');
-            $table->string('assigned');
-            $table->string('priority');
-            $table->string('category');
-            $table->foreignId('attached_by');
+            $table->string('title');
+            $table->text('description')->nullable();
+            $table->string('status');
             $table->string('risk');
-            $table->string('description');
+            $table->foreignId('attached_by');
             $table->date('start');
             $table->date('deadline');
             $table->foreignId('project_id')->unsigned();
