@@ -110,9 +110,9 @@
         <div class="mb-3 col">
             <label for="exampleInputPassword1" class="form-label">Status</label>
             <select name="status" id="" class="form-control">
-                <option value="Aktif"  {{ 'Aktif' == $data['status'] ? 'selected' : '' }}>Aktif</option>
+                <option value="Complated"  {{ 'Complated' == $data['status'] ? 'selected' : '' }}>Complated</option>
                 <option value="Pending" {{ 'Pending' == $data['status'] ? 'selected' : '' }}>Pending</option>
-                <option value="Non-Aktif" {{ 'Non-Aktif' == $data['status'] ? 'selected' : '' }}>Non-Aktif</option>
+                <option value="Aktif" {{ 'Aktif' == $data['status'] ? 'selected' : '' }}>Aktif</option>
             </select>
             @if($errors->has('status'))
             <span>

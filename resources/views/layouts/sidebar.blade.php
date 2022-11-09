@@ -13,7 +13,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="{{ route('home') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -54,8 +54,9 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">List Type</h6>
-                        <a class="collapse-item" href="buttons.html">Proyek bulanan</a>
-                        <a class="collapse-item" href="cards.html">Graphic Design</a>
+                        @foreach(\App\Models\ProyekType::all() as $item)
+                        <a class="collapse-item" href="{{ route('proyek.show', $item->id) }}">{{ $item->type_name }}</a>
+                        @endforeach
                     </div>
                 </div>
             </li>
@@ -65,7 +66,12 @@
                     <span>List Task</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="charts.html">
+                <a class="nav-link" href="{{ route('template.index') }}">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Templates</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('reports.index') }}">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Laporan</span></a>
             </li>

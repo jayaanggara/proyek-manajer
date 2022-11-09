@@ -17,13 +17,7 @@ class CreateReportTemplatesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('deskripsi');
-            $table->foreignId('project_id');
-            $table->timestamps();
-            
-            $table->foreign('project_id')
-            ->references('id')->on('projects')
-            ->onUpdate('cascade')
-            ->onDelete('cascade');
+            $table->timestamps();            
 
         });
     }

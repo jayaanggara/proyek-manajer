@@ -22,7 +22,7 @@
             <label for="exampleInputPassword1" class="form-label">Status</label>
             <select name="status" id="" class="form-control">
                 <option value="Open"  {{ 'Open' == $data['status'] ? 'selected' : '' }}>Open</option>
-                <option value="Aktif"  {{ 'Aktif' == $data['status'] ? 'selected' : '' }}>Aktif</option>
+                <option value="Complated"  {{ 'Complated' == $data['status'] ? 'selected' : '' }}>Complated</option>
                 <option value="Progres"  {{ 'Progres' == $data['status'] ? 'selected' : '' }}>Progres</option>
                 <option value="Pending"  {{ 'Pending' == $data['status'] ? 'selected' : '' }}>Pending</option>
             </select>

@@ -40,7 +40,7 @@
                 <td>{{ $item['project_name'] }}</td>
                 <td>
                     @foreach($item['getType'] as $type)
-                    <a href="">{{ $type['type_name'] }}</a>, 
+                    <a href="{{ route('proyek.show', $type->id) }}">{{ $type['type_name'] }}</a>, 
                     @endforeach
                 </td>
                 <td>{{ $item['status'] }}</td>

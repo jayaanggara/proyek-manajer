@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Task;
 use App\Models\Proyek;
+use App\Models\Templates;
 use Carbon\Carbon;
+
 
 class TaskController extends Controller
 {
@@ -32,9 +34,9 @@ class TaskController extends Controller
         $data['Progres'] = Task::whereHas('getProyek', function($q) use ($p){
             $q->where('id', $p);
         })->where('status','Progres')->get();
-        $data['Aktif'] = Task::whereHas('getProyek', function($q) use ($p){
+        $data['Complated'] = Task::whereHas('getProyek', function($q) use ($p){
             $q->where('id', $p);
-        })->where('status','Aktif')->get();
+        })->where('status','Complated')->get();
 
 
         $now = Carbon::now();
@@ -69,12 +71,15 @@ class TaskController extends Controller
             $q->where('id', $p);
         })->where('status','Progres')->get();
 
-        if($status == 'Aktif')
+        if($status == 'Complated')
         $data = Task::whereHas('getProyek', function($q) use ($p){
             $q->where('id', $p);
-        })->where('status','Aktif')->get();
+        })->where('status','Complated')->get();
 
-        $pdf = \PDF::loadView('pdf.export-task', compact('data'));
+        $proyek = proyek::find($p);
+        $template = Templates::find($proyek->template_id);
+
+        $pdf = \PDF::loadView('pdf.'.$template->name, compact('data'));
         // return $pdf->download('export.pdf');
         return $pdf->stream();
 

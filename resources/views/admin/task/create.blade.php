@@ -21,7 +21,7 @@
             <label for="exampleInputPassword1" class="form-label">Status</label>
             <select name="status" id="" class="form-control">
                 <option value="Open">Open</option>
-                <option value="Aktif">Aktif</option>
+                <option value="Complated">Complated</option>
                 <option value="Progres">Progres</option>
                 <option value="Pending">Pending</option>
             </select>

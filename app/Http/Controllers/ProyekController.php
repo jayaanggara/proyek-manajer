@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\ProyekType;
 use App\Models\RelationsProjectsTypes;
 use App\Models\RelationsProjectsUsers;
+use App\Models\Templates;
 use App\Service\myImage;
 
 class ProyekController extends Controller
@@ -34,7 +35,8 @@ class ProyekController extends Controller
         $data = ProyekType::get();
         $user = User::where('roles_id', 3)->get();
         $client = User::where('roles_id', 4)->get();
-        return view('admin.proyek.create', compact('data','user','client'));
+        $template = Templates::get();
+        return view('admin.proyek.create', compact('data','user','client','template'));
     }
 
     /**
@@ -69,6 +71,7 @@ class ProyekController extends Controller
         $proyek->end_date = $request->end_date;
         $proyek->client = $request->client;
         $proyek->site = $request->site;
+        $proyek->template_id = $request->template;
         $proyek->company_name = $request->company_name;
         $proyek->save();
         
@@ -93,8 +96,10 @@ class ProyekController extends Controller
      */
     public function show($id)
     {
-        $data = Proyek::has('getType')->where('id', $id)->first();
-        return view('admin.roles.detail', compact('data'));
+        $data = Proyek::whereHas('getType', function($query) use ($id) {
+            $query->where('project_type_id', $id);
+        })->get();
+        return view('admin.proyek.detail', compact('data'));
     }
 
     /**
@@ -139,7 +144,7 @@ class ProyekController extends Controller
         if($request->hasFile('logo')){
             $image = new myImage;
             if($proyek->logo != ""){
-                 $image->deleteImage($proyek->logo);    
+                $image->deleteImage($proyek->logo);    
             }
             $proyek->logo = $image->saveImage($request->logo, $request->project_name);
         }

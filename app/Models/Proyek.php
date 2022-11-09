@@ -27,6 +27,10 @@ class Proyek extends Model
         return $this->belongsTo(User::class,'user','id');
     }
 
+    public function getClient(){
+        return $this->belongsTo(User::class,'client','id');
+    }
+
     public function getTask(){
         return $this->hasMany(Task::class,'project_id','id');
     }
@@ -37,6 +41,10 @@ class Proyek extends Model
 
     public function getStaf(){
         return $this->belongsToMany(User::class,'relations_projects_users','project_id','user_id')->withTimestamps();
+    }
+
+    public function template(){
+        return $this->belongsTo(Proyek::class);
     }
 
     public function getLogoUrlAttribute()

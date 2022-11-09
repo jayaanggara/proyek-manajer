@@ -2,17 +2,17 @@
 
 @section('content')
 
-<div>
-    <div class="row row-cols-3 mb-3">
-        <div class="col">
-            <a href="{{ route('task.create') }}" class="btn btn-primary">
+<div class="px-3">
+    <div class="row row-cols-2 mb-3 px-1">
+        <div class="col text-left">
+            <a href="{{ route('task.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                 Create Task
             </a>
-            <a href="{{ route('task.export-task') }}?proyek={{ request('proyek') }}" class="btn btn-primary">
-                Export All
+            <a href="{{ route('task.export-task') }}?proyek={{ request('proyek') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                <i class="fas fa-download fa-sm text-white-50"></i> Generate Report
             </a> 
         </div>
-        <div class="col">
+        <div class="col text-end text-right">
             <span for="exampleInputEmail1" class="form-label">Proyek Type</span>
                 <form action="" class="d-inline-block" method="get">
                     <select name="proyek" id="" class="form-control select2" onchange="this.form.submit()">
@@ -26,7 +26,7 @@
 </div>
 @if($data['Open']->count() > 0)
 <div class="card-body">
-    <a href="{{ route('task.export-task') }}?status=Open&proyek={{ request('proyek') }}" class="btn btn-primary">
+    <a href="{{ route('task.export-task') }}?status=Open&proyek={{ request('proyek') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mb-3">
         Export Task Open
     </a>
     <div class="table-responsive">
@@ -62,7 +62,7 @@
                     @csrf
                     <select name="status" id="" class="form-control" onchange="this.form.submit()">
                         <option value="Open"  {{ 'Open' == $item['status'] ? 'selected' : '' }}>Open</option>
-                        <option value="Aktif" {{ 'Aktif' == $item['status'] ? 'selected' : '' }}>Aktif</option>
+                        <option value="Complated" {{ 'Complated' == $item['status'] ? 'selected' : '' }}>Complated</option>
                         <option value="Progres" {{ 'Progres' == $item['status'] ? 'selected' : '' }}>Progres</option>
                         <option value="Pending" {{ 'Pending' == $item['status'] ? 'selected' : '' }}>Pending</option>
                     </select>
@@ -84,10 +84,10 @@
     </div>
 </div>
 @endif
-@if($data['Aktif']->count() > 0)
+@if($data['Complated']->count() > 0)
 <div class="card-body">
-    <a href="{{ route('task.export-task') }}?status=Aktif&proyek={{ request('proyek') }}" class="btn btn-primary">
-        Export Task Aktif
+    <a href="{{ route('task.export-task') }}?status=Complated&proyek={{ request('proyek') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mb-3">
+        Export Task Complated
     </a>
     <div class="table-responsive">
         <table class="table table-bordered"  width="100%" cellspacing="0">
@@ -108,7 +108,7 @@
                 </tr>
             </tfoot>
             <tbody>
-            @foreach($data['Aktif'] as $i => $item)
+            @foreach($data['Complated'] as $i => $item)
             <tr class="
             @if($future == $item['deadline'])
             bg-danger
@@ -122,7 +122,7 @@
                     @csrf
                     <select name="status" id="" class="form-control" onchange="this.form.submit()">
                         <option value="Open"  {{ 'Open' == $item['status'] ? 'selected' : '' }}>Open</option>
-                        <option value="Aktif" {{ 'Aktif' == $item['status'] ? 'selected' : '' }}>Aktif</option>
+                        <option value="Complated" {{ 'Complated' == $item['status'] ? 'selected' : '' }}>Complated</option>
                         <option value="Progres" {{ 'Progres' == $item['status'] ? 'selected' : '' }}>Progres</option>
                         <option value="Pending" {{ 'Pending' == $item['status'] ? 'selected' : '' }}>Pending</option>
                     </select>
@@ -147,7 +147,7 @@
 
 @if($data['Pending']->count() > 0)
 <div class="card-body">
-    <a href="{{ route('task.export-task') }}?status=Pending&proyek={{ request('proyek') }}" class="btn btn-primary">
+    <a href="{{ route('task.export-task') }}?status=Pending&proyek={{ request('proyek') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mb-3">
         Export Task Pending
     </a>
     <div class="table-responsive">
@@ -183,7 +183,7 @@
                     @csrf
                     <select name="status" id="" class="form-control" onchange="this.form.submit()">
                         <option value="Open"  {{ 'Open' == $item['status'] ? 'selected' : '' }}>Open</option>
-                        <option value="Aktif" {{ 'Aktif' == $item['status'] ? 'selected' : '' }}>Aktif</option>
+                        <option value="Complated" {{ 'Complated' == $item['status'] ? 'selected' : '' }}>Complated</option>
                         <option value="Progres" {{ 'Progres' == $item['status'] ? 'selected' : '' }}>Progres</option>
                         <option value="Pending" {{ 'Pending' == $item['status'] ? 'selected' : '' }}>Pending</option>
                     </select>
@@ -208,7 +208,7 @@
 
 @if($data['Progres']->count() > 0)
 <div class="card-body">
-    <a href="{{ route('task.export-task') }}?status=Progress&proyek={{ request('proyek') }}" class="btn btn-primary">
+    <a href="{{ route('task.export-task') }}?status=Progress&proyek={{ request('proyek') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mb-3">
         Export Task Progress
     </a>
     <div class="table-responsive">
@@ -244,7 +244,7 @@
                     @csrf
                     <select name="status" id="" class="form-control" onchange="this.form.submit()">
                         <option value="Open"  {{ 'Open' == $item['status'] ? 'selected' : '' }}>Open</option>
-                        <option value="Aktif" {{ 'Aktif' == $item['status'] ? 'selected' : '' }}>Aktif</option>
+                        <option value="Complated" {{ 'Complated' == $item['status'] ? 'selected' : '' }}>Complated</option>
                         <option value="Progres" {{ 'Progres' == $item['status'] ? 'selected' : '' }}>Progres</option>
                         <option value="Pending" {{ 'Pending' == $item['status'] ? 'selected' : '' }}>Pending</option>
                     </select>

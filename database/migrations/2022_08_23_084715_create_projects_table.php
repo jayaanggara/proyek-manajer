@@ -25,11 +25,11 @@ class CreateProjectsTable extends Migration
             $table->date('end_date');
             $table->string('site');
             $table->string('company_name');
+            $table->foreignId('template_id')->nullable()->unsigned();
             $table->timestamps();
             
             $table->foreign('user')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('client')->references('id')->on('users')->onDelete('cascade');
-
         });
     }
 

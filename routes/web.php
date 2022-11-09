@@ -4,7 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ProyekController;
 use App\Http\Controllers\ProyekTypesController;
+use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\TemplateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +27,7 @@ Route::get('/', function () {
 Auth::routes();
 
 // PROFILE/USERS
-Route::get('/admin', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/user', [App\Http\Controllers\UserController::class, 'index'])->name('list-user');
 
@@ -46,6 +48,8 @@ Route::resource('proyek', ProyekController::class);
 // role
 Route::resource('roles', RoleController::class);
 
+
+
 // proyek type
 Route::resource('proyek-type', ProyekTypesController::class);
 
@@ -53,3 +57,10 @@ Route::resource('proyek-type', ProyekTypesController::class);
 Route::post('task/update-status/{id}', [App\Http\Controllers\TaskController::class, 'UpdateStatus'])->name('task.UpdateStatus');
 Route::get('task/export', [App\Http\Controllers\TaskController::class, 'exportTask'])->name('task.export-task');
 Route::resource('task', TaskController::class);
+
+// template
+Route::resource('template', TemplateController::class);
+
+// reports
+Route::resource('reports', ReportsController::class);
+Route::post('reports/send/{id}', [App\Http\Controllers\ReportsController::class, 'sendEmail'])->name('reports.sendEmail');
