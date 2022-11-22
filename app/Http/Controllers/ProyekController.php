@@ -10,6 +10,8 @@ use App\Models\RelationsProjectsTypes;
 use App\Models\RelationsProjectsUsers;
 use App\Models\Templates;
 use App\Service\myImage;
+use Illuminate\Support\Facades\Auth;
+use SebastianBergmann\Template\Template;
 
 class ProyekController extends Controller
 {
@@ -20,7 +22,18 @@ class ProyekController extends Controller
      */
     public function index()
     {
-        $data = Proyek::with('getType')->get();
+        if(Auth::user()->role->name == 'Administrator' || Auth::user()->role->name == 'Proyek Manajer') {
+            $data = Proyek::with('getType')->get();
+        } else if(Auth::user()->role->name == 'Client') {
+            $data = Proyek::with('getType')->whereHas('getClient', function($query) {
+                $query->whereId(Auth::user()->id);
+            })->get();
+        } else {
+            $data = Proyek::with('getType')->whereHas('getStaf', function($query) {
+                $query->whereUserId(Auth::user()->id);
+            })->get();
+        }
+        
 
         return view('admin.proyek.index', compact('data'));
     }
@@ -96,9 +109,24 @@ class ProyekController extends Controller
      */
     public function show($id)
     {
-        $data = Proyek::whereHas('getType', function($query) use ($id) {
-            $query->where('project_type_id', $id);
-        })->get();
+        if(Auth::user()->role->name == 'Administrator' || Auth::user()->role->name == 'Proyek Manajer') {
+            $data = Proyek::whereHas('getType', function($query) use ($id) {
+                $query->where('project_type_id', $id);
+            })->get();
+        } else if(Auth::user()->role->name == 'Client') {
+            $data = Proyek::whereHas('getType', function($query) use ($id) {
+                $query->where('project_type_id', $id);
+            })->whereHas('getClient', function($query) {
+                $query->whereId(Auth::user()->id);
+            })->get();
+        } else {
+            $data = Proyek::whereHas('getType', function($query) use ($id) {
+                $query->where('project_type_id', $id);
+            })->whereHas('getStaf', function($query) {
+                $query->whereUserId(Auth::user()->id);
+            })->get();
+        }
+
         return view('admin.proyek.detail', compact('data'));
     }
 
@@ -115,8 +143,9 @@ class ProyekController extends Controller
         $selected_proyektype = $data->getType->pluck('id')->toArray();
         $user = User::where('roles_id', 3)->get();
         $client = User::where('roles_id', 4)->get();
+        $template = Templates::get();
         $selected_user = $data->getStaf->pluck('id')->toArray();
-        return view('admin.proyek.edit', compact('data','proyektype', 'selected_proyektype','user','client','selected_user'));
+        return view('admin.proyek.edit', compact('data','proyektype', 'selected_proyektype','user','client','selected_user','template'));
     }
 
     /**
@@ -154,6 +183,7 @@ class ProyekController extends Controller
         $proyek->start_date = $request->start_date;
         $proyek->end_date = $request->end_date;
         $proyek->site = $request->site;
+        $proyek->template_id = $request->template;
         $proyek->company_name = $request->company_name;
         $proyek->save();
 

@@ -25,11 +25,12 @@
             <div class="sidebar-heading">
                 Users
             </div>
+            @if(Auth::user()->role->name == 'Administrator')
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('list-user') }}">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Daftar User</span></a>
-            </li>
+            </li>            
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('roles.index') }}">
                     <i class="fas fa-fw fa-chart-area"></i>
@@ -40,6 +41,12 @@
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Daftar Project Type</span></a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('template.index') }}">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Templates</span></a>
+            </li>        
+            @endif    
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('proyek.index') }}">
                     <i class="fas fa-fw fa-chart-area"></i>
@@ -65,16 +72,13 @@
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>List Task</span></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('template.index') }}">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Templates</span></a>
-            </li>
+            @if(Auth::user()->role->name != 'Staff' && Auth::user()->role->name != 'Client')
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('reports.index') }}">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Laporan</span></a>
             </li>
+            @endif
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>

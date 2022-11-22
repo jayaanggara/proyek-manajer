@@ -46,14 +46,17 @@
                 <td>{{ $item['status'] }}</td>
                 <td>
                     <a href="#" class="btn btn-info" data-toggle="modal" data-target="#exampleModal{{ $i+1 }}">View</a>
+                    @if(Auth::user()->role->name != 'Staff' && Auth::user()->role->name != 'Client' )
                     <a href="{{ route('proyek.edit', $item->id) }}" class="btn btn-warning">Edit</a>
+                    @endif
                     <a href="{{ route('task.show', $item->id) }}" class="btn btn-primary">Task</a>
+                    @if(Auth::user()->role->name != 'Staff' && Auth::user()->role->name != 'Client' )
                     <form action="{{ route('proyek.destroy', $item->id) }}" class="d-inline-block" method="post">
                         @csrf
                         <button class="btn btn-danger">Delete</button>
                         @method('delete')
                     </form>
-                    
+                    @endif
                     <!-- Modal -->
                     <div class="modal fade bd-example-modal-lg" id="exampleModal{{ $i+1 }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg">

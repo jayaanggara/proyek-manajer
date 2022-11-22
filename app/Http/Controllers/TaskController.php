@@ -137,8 +137,29 @@ class TaskController extends Controller
      */
     public function show($id)
     {
-        $data = Proyek::where('id', $id)->first();
-        return view('admin.task.detail', compact('data'));
+        $proyek = Proyek::get();
+
+        $p = $id;        
+
+        $data['Open'] = Task::whereHas('getProyek', function($q) use ($p){
+            $q->where('id', $p);
+        })->where('status','Open')->get();
+        $data['Pending'] = Task::whereHas('getProyek', function($q) use ($p){
+            $q->where('id', $p);
+        })->where('status','Pending')->get();
+        $data['Progres'] = Task::whereHas('getProyek', function($q) use ($p){
+            $q->where('id', $p);
+        })->where('status','Progres')->get();
+        $data['Complated'] = Task::whereHas('getProyek', function($q) use ($p){
+            $q->where('id', $p);
+        })->where('status','Complated')->get();
+       
+
+       
+        $now = Carbon::now();
+        $future = $now->addDays(1)->format('Y-m-d');
+        return view('admin.task.detail', compact('data','future','proyek'));
+        
     }
 
     /**

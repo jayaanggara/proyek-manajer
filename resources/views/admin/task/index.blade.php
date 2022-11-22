@@ -8,9 +8,11 @@
             <a href="{{ route('task.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                 Create Task
             </a>
+            @if(Auth::user()->role->name != 'Staff')
             <a href="{{ route('task.export-task') }}?proyek={{ request('proyek') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                 <i class="fas fa-download fa-sm text-white-50"></i> Generate Report
             </a> 
+            @endif
         </div>
         <div class="col text-end text-right">
             <span for="exampleInputEmail1" class="form-label">Proyek Type</span>
@@ -26,9 +28,11 @@
 </div>
 @if($data['Open']->count() > 0)
 <div class="card-body">
+    @if(Auth::user()->role->name != 'Staff')
     <a href="{{ route('task.export-task') }}?status=Open&proyek={{ request('proyek') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mb-3">
         Export Task Open
     </a>
+    @endif
     <div class="table-responsive">
         <table class="table table-bordered" width="100%" cellspacing="0">
             <thead>
@@ -51,7 +55,7 @@
             @foreach($data['Open'] as $i => $item)
             <tr class="
             @if($future == $item['deadline'])
-            bg-danger
+            bg-danger text-white
             @endif
             ">
                 
@@ -71,11 +75,13 @@
             </td>
             <td>
                 <a href="{{ route('task.edit', $item->id) }}" class="btn btn-warning">Edit</a>
+                @if(Auth::user()->role->name != 'Staff')
                 <form action="{{ route('task.destroy', $item->id) }}" class="d-inline-block" method="post">
                     @csrf
-                    <button class="btn btn-danger">Delete</button>
+                    <button class="btn btn-danger border">Delete</button>
                     @method('delete')
                 </form>
+                @endif
             </td>
             </tr>
             @endforeach
@@ -86,9 +92,11 @@
 @endif
 @if($data['Complated']->count() > 0)
 <div class="card-body">
+    @if(Auth::user()->role->name != 'Staff')
     <a href="{{ route('task.export-task') }}?status=Complated&proyek={{ request('proyek') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mb-3">
         Export Task Complated
     </a>
+    @endif
     <div class="table-responsive">
         <table class="table table-bordered"  width="100%" cellspacing="0">
             <thead>
@@ -111,7 +119,7 @@
             @foreach($data['Complated'] as $i => $item)
             <tr class="
             @if($future == $item['deadline'])
-            bg-danger
+            bg-danger text-white
             @endif
             ">
                 
@@ -131,11 +139,13 @@
             </td>
             <td>
                 <a href="{{ route('task.edit', $item->id) }}" class="btn btn-warning">Edit</a>
+                @if(Auth::user()->role->name != 'Staff')
                 <form action="{{ route('task.destroy', $item->id) }}" class="d-inline-block" method="post">
                     @csrf
-                    <button class="btn btn-danger">Delete</button>
+                    <button class="btn btn-danger border">Delete</button>
                     @method('delete')
                 </form>
+                @endif
             </td>
             </tr>
             @endforeach
@@ -147,9 +157,11 @@
 
 @if($data['Pending']->count() > 0)
 <div class="card-body">
+    @if(Auth::user()->role->name != 'Staff')
     <a href="{{ route('task.export-task') }}?status=Pending&proyek={{ request('proyek') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mb-3">
         Export Task Pending
     </a>
+    @endif
     <div class="table-responsive">
         <table class="table table-bordered"  width="100%" cellspacing="0">
             <thead>
@@ -172,7 +184,7 @@
             @foreach($data['Pending'] as $i => $item)
             <tr class="
             @if($future == $item['deadline'])
-            bg-danger
+            bg-danger text-white
             @endif
             ">
                 
@@ -192,11 +204,13 @@
             </td>
             <td>
                 <a href="{{ route('task.edit', $item->id) }}" class="btn btn-warning">Edit</a>
+                @if(Auth::user()->role->name != 'Staff')
                 <form action="{{ route('task.destroy', $item->id) }}" class="d-inline-block" method="post">
                     @csrf
-                    <button class="btn btn-danger">Delete</button>
+                    <button class="btn btn-danger border">Delete</button>
                     @method('delete')
                 </form>
+                @endif
             </td>
             </tr>
             @endforeach
@@ -208,9 +222,11 @@
 
 @if($data['Progres']->count() > 0)
 <div class="card-body">
+    @if(Auth::user()->role->name != 'Staff')
     <a href="{{ route('task.export-task') }}?status=Progress&proyek={{ request('proyek') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mb-3">
         Export Task Progress
     </a>
+    @endif
     <div class="table-responsive">
         <table class="table table-bordered"  width="100%" cellspacing="0">
             <thead>
@@ -233,7 +249,7 @@
             @foreach($data['Progres'] as $i => $item)
             <tr class="
             @if($future == $item['deadline'])
-            bg-danger
+            bg-danger text-white
             @endif
             ">
                 
@@ -253,11 +269,13 @@
             </td>
             <td>
                 <a href="{{ route('task.edit', $item->id) }}" class="btn btn-warning">Edit</a>
+                @if(Auth::user()->role->name != 'Staff')
                 <form action="{{ route('task.destroy', $item->id) }}" class="d-inline-block" method="post">
                     @csrf
-                    <button class="btn btn-danger">Delete</button>
+                    <button class="btn btn-danger border">Delete</button>
                     @method('delete')
                 </form>
+                @endif
             </td>
             </tr>
             @endforeach

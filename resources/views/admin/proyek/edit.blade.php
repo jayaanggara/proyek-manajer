@@ -66,7 +66,7 @@
             @endif
         </div>
     </div>
-    <div class="row row-cols-2">
+    <div class="row row-cols-3">
         <div class="mb-3 col">
             <label for="exampleInputEmail1" class="form-label">Company Name</label>
             <input type="text" class="form-control" name="company_name" value="{{ $data['company_name'] }}" id="exampleInputEmail1" aria-describedby="emailHelp">
@@ -79,6 +79,19 @@
         <div class="mb-3 col">
             <label for="exampleInputPassword1" class="form-label">Site</label>
             <input type="text" class="form-control" name="site" value="{{ $data['site'] }}" id="exampleInputPassword1">
+            @if($errors->has('site'))
+            <span>
+                {{ $errors->first('site') }}
+            </span>
+            @endif
+        </div>
+        <div class="mb-3 col">
+            <label for="exampleInputPassword1" class="form-label">Template</label>
+            <select name="template" id="" class="form-control">
+                @foreach ($template as $i => $templates)
+                <option value="{{ $templates['id'] }}" {{ $templates['id'] == $data['client'] ? 'selected' : '' }}>{{ $templates['name'] }}</option>
+                @endforeach
+            </select>
             @if($errors->has('site'))
             <span>
                 {{ $errors->first('site') }}
