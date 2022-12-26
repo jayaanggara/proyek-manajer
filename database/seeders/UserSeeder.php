@@ -18,25 +18,29 @@ class UserSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'jayaanggara112@gmail.com',
             'password' => Hash::make('admin123'),
-            'roles_id' => '1'
+            'roles_id' => '1',
+            'status' => '1',
         ]);
         user::create([
             'name' => 'Proyek Manajer',
             'email' => 'proyekmanajer@gmail.com',
             'password' => Hash::make('admin123'),
-            'roles_id' => '2'
+            'roles_id' => '2',
+            'status' => '1',
         ]);
         user::create([
             'name' => 'Staff',
             'email' => 'staff@gmail.com',
             'password' => Hash::make('admin123'),
-            'roles_id' => '3'
+            'roles_id' => '3',
+            'status' => '1',
         ]);
         user::create([
             'name' => 'Client',
             'email' => 'client@gmail.com',
             'password' => Hash::make('admin123'),
-            'roles_id' => '4'
+            'roles_id' => '4',
+            'status' => '1',
         ]);
     }
 }

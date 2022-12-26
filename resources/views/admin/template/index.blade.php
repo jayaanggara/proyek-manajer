@@ -11,7 +11,7 @@
     <div class="row row-cols-3 mb-3">
         <div class="col">
             <a href="{{ route('template.create') }}" class="btn btn-primary">
-                Create Roles
+                Create Template
             </a>
         </div>
     </div>

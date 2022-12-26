@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>template 2</title>
+    <title>{{ $proyek['project_name'] }} Export Task List - {{ date("Y-m-d") }}</title>
     <style>
         @page{
             margin:1cm 1cm 1cm 2cm;
@@ -30,9 +30,10 @@
     #task td, #task th {
     border: 1px solid #ddd;
     padding: 8px;
+    color: white;
     }
 
-    #task tr:nth-child(even){background-color: #f2f2f2;}
+    #task tr:nth-child(even){background-color: #ff7400;}
 
     #task tr:hover {background-color: #ddd;}
 
@@ -40,162 +41,176 @@
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
-    background-color: #167564;
+    background-color: #ff7400;
     color: white;
     }
     .c-green{
-        color: #167564;
+        color: #ff7400;
+    }
+    .c-white{
+        color: white;
+    }
+    .t-center{
+        text-align: center;
     }
     </style>
 </head>
 <body>
-<div>
-        <h1 class="c-green">Daily Activity Report</h1>
-        <h2 class="c-green">Employee Information</h2>
-    </div>
-    <div>
-    <div class="w-100">
-            <div class="w-100">
-                <table class="w-100">
-                    <tr>
-                      <th class="col-6">Firstname</th>
-                      <th class="col-6">Lastname</th>
-                    </tr>
-                    <tr>
-                      <td>
-                        <table>
-                            <tr>
-                              <td>Employee Name</td>
-                              <td>:</td>
-                              <td>........</td>
-                            </tr>
-                            <tr>
-                              <td>Review Period</td>
-                              <td>:</td>
-                              <td>........</td>
-                            </tr>
-                          </table>
-                      </td>
-                      <td>
-                        <table>
-                            <tr>
-                              <td>Employee Name</td>
-                              <td>:</td>
-                              <td>........</td>
-                            </tr>
-                            <tr>
-                              <td>Review Period</td>
-                              <td>:</td>
-                              <td>........</td>
-                            </tr>
-                          </table>
-                      </td>
-                    </tr>
-                  </table>
-            </div>
-        </div>
-    </div>
-    <div>
-    @php 
+    @php
     $p=1;
     $a=1;
     $d=1;
     $o=1;
     $date = date("Y-m-d");
     @endphp
-    @foreach($data as $i => $item)
-    @if($item['status'] == 'Pending')
-    <table id="task">
-                <tr>
-                    <th>#</th>
-                    <th>Task Name</th>
-                    <th>Date Complated</th>
-                    <th>Status</th>
-                </tr>
-            <tr>
-                
-            <th scope="row">{{ $p++ }}</th>
-            <td>{{ $item['title'] }}</td>
-            <td>
-               {{ $item['start'] }}
-            </td>
-            <td>
-               {{ $item['status'] }}
-            </td>
-            </tr>
-        </table>
-        @endif
-
-        @if($item['status'] == 'Complated')
-        <table id="task">
-                <tr>
-                    <th>#</th>
-                    <th>Task Name</th>
-                    <th>Date Complated</th>
-                    <th>Status</th>
-                </tr>
-            <tr>
-                
-            <th scope="row">{{ $a++ }}</th>
-            <td>{{ $item['title'] }}</td>
-            <td>
-               {{ $item['start'] }}
-            </td>
-            <td>
-               {{ $item['status'] }}
-            </td>
-            </tr>
-        </table>
-        @endif
-
-        @if($item['status'] == 'Progres')
-    <table id="task">
-                <tr>
-                    <th>#</th>
-                    <th>Task Name</th>
-                    <th>Date Complated</th>
-                    <th>Status</th>
-                </tr>
-            <tr>
-                
-            <th scope="row">{{ $i+1 }}</th>
-            <td>{{ $item['title'] }}</td>
-            <td>
-               {{ $item['start'] }}
-            </td>
-            <td>
-               {{ $item['status'] }}
-            </td>
-            </tr>
-        </table>
-        @endif
-
-        @if($item['status'] == 'Open')
-    <table id="task">
-                <tr>
-                    <th>#</th>
-                    <th>Task Name</th>
-                    <th>Date Complated</th>
-                    <th>Status</th>
-                </tr>
-            <tr>
-                
-            <th scope="row">{{ $i+1 }}</th>
-            <td>{{ $item['title'] }}</td>
-            <td>
-               {{ $item['start'] }}
-            </td>
-            <td>
-               {{ $item['status'] }}
-            </td>
-            </tr>
-        </table>
-        @endif
-        @endforeach
+<div>
+    <div style="padding: 50px; background-color: #ff7400;">
+        <h1 class="c-white t-center">{{ $proyek['project_name'] }} Proyek Status Report</h1>
+    </div>
+    <div style="padding-top: 20px;">
+    <div style="padding: 10px; background-color: #ddd; margin-top:10px; display: inline-block; border-radius: 5%;">Export Date: {{$date}}</div>
+    <div style="padding: 10px; background-color: #ddd; margin-top:10px; display: inline-block; border-radius: 5%;">Status Project: {{$date}}</div>
+    <div style="padding: 10px; background-color: #ddd; margin-top:10px; display: inline-block; border-radius: 5%;">End Project: {{$date}}</div>
     </div>
     <div>
-        <h3 class="c-green">Export Date:</h3>
-        <div>{{$date}}</div>
+    @php 
+    $progressPending = 0;
+    foreach($data as $i => $item){
+    if($item['status'] == 'Pending'){
+        $progressPending++;
+    }
+    }
+    
+    $progresscomplete = 0;
+    foreach($data as $i => $item){
+    if($item['status'] == 'complete'){
+        $progresscomplete++;
+    }
+    }
+
+    $progressOpen = 0;
+    foreach($data as $i => $item){
+    if($item['status'] == 'Open'){
+        $progressOpen++;
+    }
+    }
+
+    $progres = 0;
+    foreach($data as $i => $item){
+    if($item['status'] == 'Progres'){
+        $progres++;
+    }
+    }
+
+    @endphp
+        @if($progressPending > 0)
+            @foreach($data as $i => $item)
+                @if($item['status'] == 'Pending')
+                <h4>Pending Task</h4>
+                <table id="task">
+                    <tr>
+                        <th>#</th>
+                        <th>Task Name</th>
+                        <th>Start Date</th>
+                        <th>Status</th>
+                    </tr>
+                    <tr>
+                        <th scope="row">{{ $p++ }}</th>
+                        <td>{{ $item['title'] }}</td>
+                        <td>
+                        {{ $item['start'] }}
+                        </td>
+                        <td>
+                        {{ $item['status'] }}
+                        </td>
+                    </tr>
+                </table>
+                @endif
+            @endforeach
+        @endif
+        
+
+        @if($progresscomplete > 0)
+            @foreach($data as $i => $item)
+                @if($item['status'] == 'complete')
+                <h4>Complete Task</h4>
+                    <table id="task">
+                        <tr>
+                            <th>#</th>
+                            <th>Task Name</th>
+                            <th>Start Date</th>
+                            <th>Status</th>
+                        </tr>
+
+                        <tr>    
+                            <th scope="row">{{ $a++ }}</th>
+                            <td>{{ $item['title'] }}</td>
+                            <td>
+                            {{ $item['start'] }}
+                            </td>
+                            <td>
+                            {{ $item['status'] }}
+                            </td>
+                        </tr>
+                    </table>
+                @endif
+            @endforeach
+        @endif
+
+        @if($progres > 0)
+            @foreach($data as $i => $item)
+                @if($item['status'] == 'Progres')
+                <h4>Progress Task</h4>
+                <table id="task">
+                    <tr>
+                        <th>#</th>
+                        <th>Task Name</th>
+                        <th>Start Date</th>
+                        <th>Status</th>
+                    </tr>
+                    <tr>
+                        <th scope="row">{{ $d++ }}</th>
+                        <td>{{ $item['title'] }}</td>
+                        <td>
+                        {{ $item['start'] }}
+                        </td>
+                        <td>
+                        {{ $item['status'] }}
+                        </td>
+                    </tr>
+                </table>
+                @endif
+            @endforeach
+        @endif
+        
+
+        @if($progressOpen > 0)
+            @foreach($data as $i => $item)
+                @if($item['status'] == 'Open')
+                <h4>Open Task</h4>
+                <table id="task">
+                    <tr>
+                        <th>#</th>
+                        <th>Task Name</th>
+                        <th>Start Date</th>
+                        <th>Status</th>
+                    </tr>
+                    <tr>
+                        <th scope="row">{{ $o++ }}</th>
+                        <td>{{ $item['title'] }}</td>
+                        <td>
+                        {{ $item['start'] }}
+                        </td>
+                        <td>
+                        {{ $item['status'] }}
+                        </td>
+                    </tr>
+                </table>
+                @endif
+            @endforeach
+        @endif
+    </div>
+        
         
     </div>
 </body>

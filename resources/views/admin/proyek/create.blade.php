@@ -46,9 +46,14 @@
         </div>
         <div class="mb-3 col">
             <label for="exampleInputEmail1" class="form-label">Client Proyek</label>
-            <select name="client" id="" class="form-control">
+            @foreach ($client as $i => $cliens)
+                @if(Auth::user()->id == $cliens['id'])
+                <input type="hidden" name="client" value="{{ $cliens['id'] }}">
+                @endif
+            @endforeach
+            <select name="{{ (Auth::user()->role->name == 'Client') ? '': 'client' }}" id="" class="form-control" {{ (Auth::user()->role->name == 'Client') ? 'disabled': '' }}>
                 @foreach ($client as $i => $cliens)
-                <option value="{{ $cliens['id'] }}">Client - {{ $cliens['name'] }}</option>
+                <option value="{{ $cliens['id'] }}" {{ (Auth::user()->id == $cliens['id']) ? 'selected':'' }}>Client - {{ $cliens['name'] }}</option>
                 @endforeach
             </select>
             @if($errors->has('proyek_type'))
@@ -126,7 +131,7 @@
         <div class="mb-3 col">
             <label for="exampleInputPassword1" class="form-label">Status</label>
             <select name="status" id="" class="form-control">
-                <option value="Complated">Complated</option>
+                <option value="complete">complete</option>
                 <option value="Pending">Pending</option>
                 <option value="Aktif">Aktif</option>
             </select>

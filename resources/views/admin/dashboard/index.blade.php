@@ -72,8 +72,8 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Proyek Complated</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $proyek_complated }}</div>
+                                                Proyek complete</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $proyek_complete }}</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-tasks fa-2x text-gray-300"></i>
@@ -94,16 +94,19 @@
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Project Progress Bar</h6>
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
-                                    @foreach($dataProgress as $item)
-                                    <h4 class="small font-weight-bold">{{ $item['project_name'] }} <span class="float-right">{{ $item['percentage'].'%' }}</span></h4>
-                                    <div class="progress mb-4">
-                                        <div class="progress-bar bg-danger" role="progressbar" style="width: {{ $item['percentage'].'%' }}"
-                                            aria-valuenow="{{ $item['percentage'].'%' }}" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
+                                    @php
+                                    $count = 0;
+                                    @endphp
+                                    @foreach($dataProgress as $i => $item)
+                                        <h4 class="small font-weight-bold">{{ $item['project_name'] }} <span class="float-right">{{ $item['percentage'].'%' }}</span></h4>
+                                        <div class="progress mb-4">
+                                            <div class="progress-bar bg-danger" role="progressbar" style="width: {{ $item['percentage'].'%' }}"
+                                                aria-valuenow="{{ $item['percentage'].'%' }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
                                     @endforeach                                    
                                 </div>
                             </div>

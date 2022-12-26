@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ProyekController;
@@ -21,10 +22,12 @@ use App\Http\Controllers\TemplateController;
 
 Route::get('/', function () {
     return view('auth.login');
-});
+})->middleware('guest');
 
 // Login
 Auth::routes();
+Route::get('/api/notifications', [NotificationController::class, 'getNotif']);
+
 
 Route::middleware('auth')->group(function() {
     // PROFILE/USERS
@@ -42,11 +45,14 @@ Route::middleware('auth')->group(function() {
 
     Route::get('/delete-user/{id}', [App\Http\Controllers\UserController::class, 'delete'])->name('delete-user');
 
+    Route::post('user/update-status/{id}', [App\Http\Controllers\UserController::class, 'UpdateStatus'])->name('update-status-user');
+
     // Proyek
     Route::resource('proyek', ProyekController::class);
 
     // role
     Route::resource('roles', RoleController::class);
+    Route::post('roles/update-status/{id}', [App\Http\Controllers\RoleController::class, 'UpdateStatus'])->name('roles.UpdateStatus');
 
     // proyek type
     Route::resource('proyek-type', ProyekTypesController::class);

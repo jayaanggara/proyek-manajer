@@ -123,7 +123,7 @@
         <div class="mb-3 col">
             <label for="exampleInputPassword1" class="form-label">Status</label>
             <select name="status" id="" class="form-control">
-                <option value="Complated"  {{ 'Complated' == $data['status'] ? 'selected' : '' }}>Complated</option>
+                <option value="complete"  {{ 'complete' == $data['status'] ? 'selected' : '' }}>complete</option>
                 <option value="Pending" {{ 'Pending' == $data['status'] ? 'selected' : '' }}>Pending</option>
                 <option value="Aktif" {{ 'Aktif' == $data['status'] ? 'selected' : '' }}>Aktif</option>
             </select>

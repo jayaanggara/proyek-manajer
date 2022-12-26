@@ -5,9 +5,11 @@
 <div>
     <div class="row row-cols-3 mb-3">
         <div class="col">
+        @if(Auth::user()->role->name != 'Staff')
             <a href="{{ route('proyek.create') }}" class="btn btn-primary">
                 Create Project
             </a>
+        @endif
         </div>
     </div>
 </div>

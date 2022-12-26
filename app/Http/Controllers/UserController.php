@@ -78,6 +78,21 @@ class UserController extends Controller
         
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function UpdateStatus(Request $request, $id)
+    {
+        $data = User::where('id', $id)->first();
+        $data->status = $request->status;
+        $data->save();
+        return redirect()->route('list-user')->with('success', 'Data Your Comment has been created successfully');
+    }
+
     public function delete($id)
     {
         $data = User::where('id', $id)->delete();

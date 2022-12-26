@@ -17,13 +17,14 @@ class ProyekSeeder extends Seeder
             'project_name' => 'Onvition',
             'project_description' => 'Maintenance Bulanan',
             'logo' => 'dasdas-220917-103020.png',
-            'status' => 'Complated',
+            'status' => 'Aktif',
             'user' => '1',
             'client' => '4',
             'start_date' => '2022-09-30',
             'end_date' => '2022-09-30',
             'site' => 'https://onvition.com',
             'company_name' => 'Mous Media',
+            'template_id' => '1',
         ]);
         $Proyek1->getType()->sync([1]);
 
@@ -31,13 +32,14 @@ class ProyekSeeder extends Seeder
             'project_name' => 'Mousmedia',
             'project_description' => 'Maintenance Bulanan',
             'logo' => 'dasdas-220917-103020.png',
-            'status' => 'Complated',
+            'status' => 'Pending',
             'user' => '2',
             'client' => '4',
             'start_date' => '2022-09-30',
             'end_date' => '2022-09-30',
             'site' => 'https://onvition.com',
             'company_name' => 'Mous Media',
+            'template_id' => '1',
         ]);
         $Proyek2->getType()->sync([1]);
 
@@ -45,13 +47,14 @@ class ProyekSeeder extends Seeder
             'project_name' => 'Zacrash',
             'project_description' => 'Maintenance Bulanan',
             'logo' => 'dasdas-220917-103020.png',
-            'status' => 'Complated',
+            'status' => 'complete',
             'user' => '2',
             'client' => '4',
             'start_date' => '2022-09-30',
             'end_date' => '2022-09-30',
             'site' => 'https://onvition.com',
             'company_name' => 'Mous Media',
+            'template_id' => '2',
         ]);
         $Proyek3->getType()->sync([1]);
     }

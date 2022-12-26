@@ -66,7 +66,7 @@
                     @csrf
                     <select name="status" id="" class="form-control" onchange="this.form.submit()">
                         <option value="Open"  {{ 'Open' == $item['status'] ? 'selected' : '' }}>Open</option>
-                        <option value="Complated" {{ 'Complated' == $item['status'] ? 'selected' : '' }}>Complated</option>
+                        <option value="complete" {{ 'complete' == $item['status'] ? 'selected' : '' }}>complete</option>
                         <option value="Progres" {{ 'Progres' == $item['status'] ? 'selected' : '' }}>Progres</option>
                         <option value="Pending" {{ 'Pending' == $item['status'] ? 'selected' : '' }}>Pending</option>
                     </select>
@@ -90,11 +90,11 @@
     </div>
 </div>
 @endif
-@if($data['Complated']->count() > 0)
+@if($data['complete']->count() > 0)
 <div class="card-body">
     @if(Auth::user()->role->name != 'Staff')
-    <a href="{{ route('task.export-task') }}?status=Complated&proyek={{ request('proyek') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mb-3">
-        Export Task Complated
+    <a href="{{ route('task.export-task') }}?status=complete&proyek={{ request('proyek') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mb-3">
+        Export Task complete
     </a>
     @endif
     <div class="table-responsive">
@@ -116,7 +116,7 @@
                 </tr>
             </tfoot>
             <tbody>
-            @foreach($data['Complated'] as $i => $item)
+            @foreach($data['complete'] as $i => $item)
             <tr class="
             @if($future == $item['deadline'])
             bg-danger text-white
@@ -130,7 +130,7 @@
                     @csrf
                     <select name="status" id="" class="form-control" onchange="this.form.submit()">
                         <option value="Open"  {{ 'Open' == $item['status'] ? 'selected' : '' }}>Open</option>
-                        <option value="Complated" {{ 'Complated' == $item['status'] ? 'selected' : '' }}>Complated</option>
+                        <option value="complete" {{ 'complete' == $item['status'] ? 'selected' : '' }}>complete</option>
                         <option value="Progres" {{ 'Progres' == $item['status'] ? 'selected' : '' }}>Progres</option>
                         <option value="Pending" {{ 'Pending' == $item['status'] ? 'selected' : '' }}>Pending</option>
                     </select>
@@ -195,7 +195,7 @@
                     @csrf
                     <select name="status" id="" class="form-control" onchange="this.form.submit()">
                         <option value="Open"  {{ 'Open' == $item['status'] ? 'selected' : '' }}>Open</option>
-                        <option value="Complated" {{ 'Complated' == $item['status'] ? 'selected' : '' }}>Complated</option>
+                        <option value="complete" {{ 'complete' == $item['status'] ? 'selected' : '' }}>complete</option>
                         <option value="Progres" {{ 'Progres' == $item['status'] ? 'selected' : '' }}>Progres</option>
                         <option value="Pending" {{ 'Pending' == $item['status'] ? 'selected' : '' }}>Pending</option>
                     </select>
@@ -260,7 +260,7 @@
                     @csrf
                     <select name="status" id="" class="form-control" onchange="this.form.submit()">
                         <option value="Open"  {{ 'Open' == $item['status'] ? 'selected' : '' }}>Open</option>
-                        <option value="Complated" {{ 'Complated' == $item['status'] ? 'selected' : '' }}>Complated</option>
+                        <option value="complete" {{ 'complete' == $item['status'] ? 'selected' : '' }}>complete</option>
                         <option value="Progres" {{ 'Progres' == $item['status'] ? 'selected' : '' }}>Progres</option>
                         <option value="Pending" {{ 'Pending' == $item['status'] ? 'selected' : '' }}>Pending</option>
                     </select>

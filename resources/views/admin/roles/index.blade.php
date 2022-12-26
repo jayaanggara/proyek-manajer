@@ -26,6 +26,7 @@
                     <th>Role Name</th>
                     <th>Deskripsi</th>
                     <th>jumlah pemilik</th>
+                    <th>Status</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -35,6 +36,7 @@
                     <th>Role Name</th>
                     <th>Deskripsi</th>
                     <th>jumlah pemilik</th>
+                    <th>Status</th>
                     <th>Action</th>
                 </tr>
             </tfoot>
@@ -46,8 +48,18 @@
                 <td>{{ $item['deskripsi'] }}</td>
                 <td><a href="{{ route('roles.show', $item->id) }}">{{ $item['user_count'] }}</a></td>
                 <td>
+                    <form action="{{ route('roles.UpdateStatus', $item->id) }}" class="d-inline-block" method="post">
+                                    @csrf
+                                    <select name="status" id="" class="form-control" onchange="this.form.submit()">
+                                        <option value="1"  {{ '1' == $item['status'] ? 'selected' : '' }}>Aktif</option>
+                                        <option value="2"  {{ '2' == $item['status'] ? 'selected' : '' }}>Deaktif</option>
+                                    </select>
+                                    @method('post')
+                    </form>
+                </td>
+                <td>
                     <a href="{{ route('roles.edit', $item->id) }}" class="btn btn-warning">Edit</a>
-                    <a href="{{ route('delete-user', $item->id) }}" class="btn btn-danger">Delete</a>
+                    <!-- <a href="{{ route('delete-user', $item->id) }}" class="btn btn-danger">Delete</a> -->
                 </td>
             </tr>
             @endforeach

@@ -21,7 +21,7 @@ class ReportsController extends Controller
      */
     public function index()
     {
-        $data = Reports::with(['proyek','files'])->get();
+        $data = Reports::with(['proyek','files'])->orderBy('id','DESC')->get();
         return view('admin.reports.index', compact('data'));
     }
 

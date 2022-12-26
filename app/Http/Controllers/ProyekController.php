@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SendNotificationMail;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use App\Models\Proyek;
 use App\Models\User;
@@ -11,6 +13,7 @@ use App\Models\RelationsProjectsUsers;
 use App\Models\Templates;
 use App\Service\myImage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use SebastianBergmann\Template\Template;
 
 class ProyekController extends Controller
@@ -46,8 +49,8 @@ class ProyekController extends Controller
     public function create()
     {
         $data = ProyekType::get();
-        $user = User::where('roles_id', 3)->get();
-        $client = User::where('roles_id', 4)->get();
+        $user = User::where('roles_id', 3)->where('status','!=','2')->get();
+        $client = User::where('roles_id', 4)->where('status','!=','2')->get();
         $template = Templates::get();
         return view('admin.proyek.create', compact('data','user','client','template'));
     }
@@ -91,6 +94,47 @@ class ProyekController extends Controller
         $proyek->getType()->sync($request->proyek_type);
 
         $proyek->getStaf()->sync($request->proyek_user);
+
+        Notification::create([
+            'user_id' => $request->user()->id,
+            'project_id' => $proyek->id,
+            'status' => 1
+        ]);
+
+        Notification::create([
+            'user_id' => $request->client,
+            'project_id' => $proyek->id,
+            'status' => 1
+        ]);
+
+        $user = User::whereId($request->client)->first();
+
+        Mail::to($request->user()->email)->queue(new SendNotificationMail([
+            'fullname' => $request->user()->name,
+            'message' => 'Project '.$proyek->project_name.' Berhasil Ditambahkan'
+        ]));
+
+        Mail::to($user->email)->queue(new SendNotificationMail([
+            'fullname' => $user->name,
+            'message' => 'Project '.$proyek->project_name.' Berhasil Ditambahkan'
+        ]));
+
+        if(count($request->proyek_user) > 0) {
+            foreach($request->proyek_user as $item) {
+                $staffest = User::whereId($item)->first();
+                
+                Notification::create([
+                    'user_id' => $item,
+                    'project_id' => $proyek->id,
+                    'status' => 1
+                ]);
+
+                Mail::to($staffest->email)->queue(new SendNotificationMail([
+                    'fullname' => $staffest->name,
+                    'message' => 'Project '.$proyek->project_name.' Berhasil Ditambahkan'
+                ])); 
+            }
+        }
 
         // $RelationsProjectTypes = new RelationsProjectsTypes;
         // $RelationsProjectTypes->user_id = $request->user()->id;
@@ -141,8 +185,8 @@ class ProyekController extends Controller
         $data = Proyek::with('getType')->where('id', $id)->first();
         $proyektype = ProyekType::get();
         $selected_proyektype = $data->getType->pluck('id')->toArray();
-        $user = User::where('roles_id', 3)->get();
-        $client = User::where('roles_id', 4)->get();
+        $user = User::where('roles_id', 3)->where('status','!=','2')->get();
+        $client = User::where('roles_id', 4)->where('status','!=','2')->get();
         $template = Templates::get();
         $selected_user = $data->getStaf->pluck('id')->toArray();
         return view('admin.proyek.edit', compact('data','proyektype', 'selected_proyektype','user','client','selected_user','template'));

@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use App\Models\Task;
 use App\Models\Proyek;
 use App\Models\Templates;
 use Carbon\Carbon;
-
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
@@ -18,10 +19,39 @@ class TaskController extends Controller
      */
     public function index(Request $request)
     {
-        $proyek = Proyek::get();
+        if(Auth::user()->role->name == 'Administrator' || Auth::user()->role->name == 'Proyek Manajer') {
+            $proyek = Proyek::get();
+        } else if(Auth::user()->role->name == 'Client') {
+            $proyek = Proyek::with('getType')->whereHas('getClient', function($query) {
+                $query->whereId(Auth::user()->id);
+            })->get();
+        } else {
+            $proyek = Proyek::with('getType')->whereHas('getStaf', function($query) {
+                $query->whereUserId(Auth::user()->id);
+            })->get();
+        }
 
-        $p = $request->proyek ?? Proyek::first()->id;
-        // // dd($p);
+        $p = $request->proyek;
+        
+        if(!$p) {
+            $user = Auth::user();
+            
+            if($user->roles_id == 4) {
+
+                $proyekQuery = Proyek::whereClient($user->id)->first();
+                $p = $proyekQuery->id;
+                
+            } else if($user->roles_id == 3) {
+                $proyekQuery = Proyek::with('getStaf')->whereHas('getStaf', function($query) use ($user) {
+                    $query->whereUserId($user->id);
+                })->first(); 
+
+                $p = $proyekQuery->id;
+            } else {
+                $p = 1;
+            }
+        }
+
         // dd(Task::whereHas('getProyek', function($q){
         //     $q->where('id', "1");
         // })->get());
@@ -34,10 +64,11 @@ class TaskController extends Controller
         $data['Progres'] = Task::whereHas('getProyek', function($q) use ($p){
             $q->where('id', $p);
         })->where('status','Progres')->get();
-        $data['Complated'] = Task::whereHas('getProyek', function($q) use ($p){
+        $data['complete'] = Task::whereHas('getProyek', function($q) use ($p){
             $q->where('id', $p);
-        })->where('status','Complated')->get();
+        })->where('status','complete')->get();
 
+        // dd($proyek);
 
         $now = Carbon::now();
         $future = $now->addDays(1)->format('Y-m-d');
@@ -46,6 +77,11 @@ class TaskController extends Controller
 
     public function exportTask(Request $request)
     {
+        $proyek = Proyek::find($request->proyek);
+        if(empty($proyek)){
+            $proyek = Proyek::find(1);
+        }
+        // dd($proyek);
         $status = request('status') ?? '';
 
         $p = $request->proyek ?? Proyek::first()->id;
@@ -71,15 +107,17 @@ class TaskController extends Controller
             $q->where('id', $p);
         })->where('status','Progres')->get();
 
-        if($status == 'Complated')
+        if($status == 'complete')
         $data = Task::whereHas('getProyek', function($q) use ($p){
             $q->where('id', $p);
-        })->where('status','Complated')->get();
+        })->where('status','complete')->get();
 
         $proyek = proyek::find($p);
         $template = Templates::find($proyek->template_id);
 
-        $pdf = \PDF::loadView('pdf.'.$template->name, compact('data'));
+        // dd($data);
+
+        $pdf = \PDF::loadView('pdf.'.$template->name, compact('data','proyek'));
         // return $pdf->download('export.pdf');
         return $pdf->stream();
 
@@ -92,8 +130,18 @@ class TaskController extends Controller
      */
     public function create()
     {
-        
-        $data = Proyek::get();
+        if(Auth::user()->role->name == 'Administrator' || Auth::user()->role->name == 'Proyek Manajer') {
+            $data = Proyek::get();
+        } else if(Auth::user()->role->name == 'Client') {
+            $data = Proyek::with('getType')->whereHas('getClient', function($query) {
+                $query->whereId(Auth::user()->id);
+            })->get();
+        } else {
+            $data = Proyek::with('getType')->whereHas('getStaf', function($query) {
+                $query->whereUserId(Auth::user()->id);
+            })->get();
+        }
+
 
         return view('admin.task.create', compact('data'));
     }
@@ -123,8 +171,29 @@ class TaskController extends Controller
         $task->start = $request->start;
         $task->deadline = $request->deadline;
         $task->project_id = $request->proyek;
-   
+
         $task->save();
+        
+        $cektask = Task::whereId($task->id)->with(['getProyek.getStaf','getProyek.getClient'])->first();
+        
+        if(count($cektask->getProyek->getStaf) > 0)
+        {
+            foreach ($cektask->getProyek->getStaf as $item) {
+                Notification::create([
+                    'user_id' => $item->id,
+                    'project_id' => $request->proyek,
+                    'status' => 2,
+                ]);
+            }
+        }
+        Notification::create([
+            'user_id' => $cektask->getProyek->getClient->id,
+            'project_id' => $request->proyek,
+            'status' => 2,
+        ]);
+        
+
+
 
         return redirect('task')->with('success', 'Data Your Comment has been created successfully');
     }
@@ -137,7 +206,18 @@ class TaskController extends Controller
      */
     public function show($id)
     {
-        $proyek = Proyek::get();
+        
+        if(Auth::user()->role->name == 'Administrator' || Auth::user()->role->name == 'Proyek Manajer') {
+            $proyek = Proyek::get();
+        } else if(Auth::user()->role->name == 'Client') {
+            $proyek = Proyek::with('getType')->whereHas('getClient', function($query) {
+                $query->whereId(Auth::user()->id);
+            })->get();
+        } else {
+            $proyek = Proyek::with('getType')->whereHas('getStaf', function($query) {
+                $query->whereUserId(Auth::user()->id);
+            })->get();
+        }
 
         $p = $id;        
 
@@ -150,9 +230,9 @@ class TaskController extends Controller
         $data['Progres'] = Task::whereHas('getProyek', function($q) use ($p){
             $q->where('id', $p);
         })->where('status','Progres')->get();
-        $data['Complated'] = Task::whereHas('getProyek', function($q) use ($p){
+        $data['complete'] = Task::whereHas('getProyek', function($q) use ($p){
             $q->where('id', $p);
-        })->where('status','Complated')->get();
+        })->where('status','complete')->get();
        
 
        
@@ -170,7 +250,18 @@ class TaskController extends Controller
      */
     public function edit($id)
     {
-        $data_proyek = Proyek::get();
+        if(Auth::user()->role->name == 'Administrator' || Auth::user()->role->name == 'Proyek Manajer') {
+            $data_proyek = Proyek::get();
+        } else if(Auth::user()->role->name == 'Client') {
+            $data_proyek = Proyek::with('getType')->whereHas('getClient', function($query) {
+                $query->whereId(Auth::user()->id);
+            })->get();
+        } else {
+            $data_proyek = Proyek::with('getType')->whereHas('getStaf', function($query) {
+                $query->whereUserId(Auth::user()->id);
+            })->get();
+        }
+
         $data = Task::where('id', $id)->first();
         return view('admin.task.edit', compact('data','data_proyek'));
     }

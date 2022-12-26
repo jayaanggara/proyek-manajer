@@ -137,5 +137,27 @@
     <script src="{{ asset('tinymce/jquery.tinymce.min.js') }}"></script>
     <script src="{{ asset('tinymce/tinymce.min.js') }}"></script>
     <script src="{{ asset('tinymce/tinymce.config.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    <script>
+        $.get("/api/notifications", function(data, status){
+            for (let index = 0; index < data.length; index++) {
+                const element = data[index];
+                console.log(element)
+                $(document).find('div[id="content-notification"]').append(`
+                    <a class="dropdown-item d-flex align-items-center" href="#">
+                        <div class="mr-3">
+                            <div class="icon-circle bg-primary">
+                                <i class="fas fa-file-alt text-white"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="small text-gray-500">${moment(element.created_at).format('DD MMMM YYYY')}</div>
+                            <span class="font-weight-bold">${element.status}</span>
+                        </div>
+                    </a>
+                `);   
+            }
+        });
+    </script>
 </body>
 </html>

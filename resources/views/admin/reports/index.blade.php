@@ -45,8 +45,7 @@
                 <td>{{ $item->proyek->project_name }}</td>
                 <td>{{ $item['description'] }}</td>
                 <td>{{ date('F Y', strtotime($item->created_at)) }}</td>
-                <td>
-                    <a href="{{ route('roles.edit', $item->id) }}" class="btn btn-warning">Edit</a>
+                <td>                    
                     <a href="#" class="btn btn-info" data-toggle="modal" data-target="#exampleModal{{ $i+1 }}">View</a>
                     <form action="{{ route('reports.sendEmail', $item->id) }}" method="POST">
                         @csrf

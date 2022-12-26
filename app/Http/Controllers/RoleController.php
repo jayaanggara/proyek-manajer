@@ -89,6 +89,21 @@ class RoleController extends Controller
     }
 
     /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function UpdateStatus(Request $request, $id)
+    {
+        $data = Role::where('id', $id)->first();
+        $data->status = $request->status;
+        $data->save();
+        return redirect('roles')->with('success', 'Data Your Comment has been created successfully');
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
