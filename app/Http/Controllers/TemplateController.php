@@ -42,7 +42,7 @@ class TemplateController extends Controller
             'deskripsi' => 'required',
         ]);
         Templates::create($validated);
-        return redirect('template')->with('success', 'Data Your Comment has been created successfully');
+        return redirect('template')->with('success', 'Data Template has been created successfully');
     }
 
     /**
@@ -87,6 +87,8 @@ class TemplateController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = Templates::where('id', $id)->delete();
+        \Session::flash('notif', ['level' => 'success','message' => 'Data template has been deleted successfully']);
+        return redirect()->route('template.index');
     }
 }

@@ -48,7 +48,8 @@ class TaskController extends Controller
 
                 $p = $proyekQuery->id;
             } else {
-                $p = 1;
+                $proyekQuery = Proyek::first();
+                $p = $proyekQuery->id;
             }
         }
 
@@ -192,10 +193,8 @@ class TaskController extends Controller
             'status' => 2,
         ]);
         
-
-
-
-        return redirect('task')->with('success', 'Data Your Comment has been created successfully');
+        \Session::flash('notif', ['level' => 'success','message' => 'Data task has been created successfully']);
+        return redirect()->route('task.index');
     }
 
     /**
@@ -287,7 +286,8 @@ class TaskController extends Controller
    
         $task->save();
 
-        return redirect('task')->with('success', 'Data Your Comment has been created successfully');
+        \Session::flash('notif', ['level' => 'success','message' => 'Data task has been updated successfully']);
+        return redirect()->route('task.index');
     }
 
     /**
@@ -303,7 +303,8 @@ class TaskController extends Controller
         $task->status = $request->status;
         $task->save();
         $url = route('task.index')."?proyek=".$task->project_id;
-        return redirect($url)->with('success', 'Data Your Comment has been created successfully');
+        \Session::flash('notif', ['level' => 'success','message' => 'Data status task has been updated successfully']);
+        return redirect($url);
     }
 
     /**
@@ -315,7 +316,7 @@ class TaskController extends Controller
     public function destroy($id)
     {
         $data = Task::where('id', $id)->delete();
-        \Session::flash('notif', ['level' => 'success','message' => 'Data user berhasil didelete !']);
+        \Session::flash('notif', ['level' => 'success','message' => 'Data task has been deleted successfully']);
         return redirect()->route('task.index');
     }
 }

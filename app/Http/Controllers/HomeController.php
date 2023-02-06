@@ -50,14 +50,19 @@ class HomeController extends Controller
         $percentage = 0;
         foreach($project_progress as $item) {
             if($item->getTask()->whereStatus('complete')->count() > 0){
-            $percentage = $item->getTask()->whereStatus('complete')->count() / $item->getTask->count();
+                $percentage = $item->getTask()->whereStatus('complete')->count() / $item->getTask->count();
             
             if($percentage){
+                $dataProgress[] = [
+                    'project_name' => $item->project_name,
+                    'percentage' => ($percentage * 100)
+                ];
+            }
+        } else {
             $dataProgress[] = [
                 'project_name' => $item->project_name,
-                'percentage' => ($percentage * 100)
+                'percentage' => 0
             ];
-            }
         }
         }
 

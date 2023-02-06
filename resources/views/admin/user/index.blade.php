@@ -35,6 +35,7 @@
       <td>{{ $item['name'] }}</td>
       <td>{{ $item['email'] }}</td>
       <td>{{ $item['role']['name'] }}</td>
+      @if($item['role']['name'] != 'Administrator')
       <td>
       <form action="{{ route('update-status-user', $item->id) }}" class="d-inline-block" method="post">
                     @csrf
@@ -49,6 +50,7 @@
         <a href="{{ route('edit-user', $item->id) }}" class="btn btn-warning">Edit</a>
         <!-- <a href="{{ route('delete-user', $item->id) }}" class="btn btn-danger">Delete</a> -->
       </td>
+      @endif
     </tr>
     @endforeach
   </tbody>

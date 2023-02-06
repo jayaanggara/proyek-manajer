@@ -2,9 +2,6 @@
 
 @section('content')
 
-@foreach($errors->all() as $error)
-{{ $error }}
-@endforeach
 <form method="post" action="{{ route('proyek.store') }}" enctype="multipart/form-data" >
     @csrf
     @method('post')
@@ -12,9 +9,9 @@
         <div class="mb-3 col">
             <label for="exampleInputEmail1" class="form-label">Project Name</label>
             <input type="text" class="form-control" name="project_name" id="exampleInputEmail1" aria-describedby="emailHelp">
-            @if($errors->has('name'))
+            @if($errors->has('project_name'))
             <span>
-                {{ $errors->first('name') }}
+                {{ $errors->first('project_name') }}
             </span>
             @endif
         </div>
@@ -131,9 +128,9 @@
         <div class="mb-3 col">
             <label for="exampleInputPassword1" class="form-label">Status</label>
             <select name="status" id="" class="form-control">
-                <option value="complete">complete</option>
-                <option value="Pending">Pending</option>
                 <option value="Aktif">Aktif</option>
+                <option value="Pending">Pending</option>
+                <option value="complete">complete</option>
             </select>
             @if($errors->has('status'))
             <span>

@@ -41,7 +41,7 @@ class RoleController extends Controller
             'deskripsi' => 'required',
         ]);
         Role::create($validated);
-        return redirect('roles')->with('success', 'Data Your Comment has been created successfully');
+        return redirect('roles')->with('success', 'Data Role has been created successfully');
     }
 
     /**
@@ -85,7 +85,7 @@ class RoleController extends Controller
         $role->name = $request->name;
         $role->deskripsi = $request->deskripsi;
         $role->save();
-        return redirect('roles')->with('success', 'Data Your Comment has been created successfully');
+        return redirect('roles')->with('success', 'Data Role has been update successfully');
     }
 
     /**
@@ -100,7 +100,7 @@ class RoleController extends Controller
         $data = Role::where('id', $id)->first();
         $data->status = $request->status;
         $data->save();
-        return redirect('roles')->with('success', 'Data Your Comment has been created successfully');
+        return redirect('roles')->with('success', 'updare role status success');
     }
 
     /**

@@ -131,37 +131,9 @@
     }
 
     @endphp
-        @if($progressPending > 0)
-            @foreach($data as $i => $item)
-                @if($item['status'] == 'Pending')
-                <h4>Pending Task</h4>
-                <table id="task">
-                    <tr>
-                        <th>#</th>
-                        <th>Task Name</th>
-                        <th>Start Date</th>
-                        <th>Status</th>
-                    </tr>
-                    <tr>
-                        <th scope="row">{{ $p++ }}</th>
-                        <td>{{ $item['title'] }}</td>
-                        <td>
-                        {{ $item['start'] }}
-                        </td>
-                        <td>
-                        {{ $item['status'] }}
-                        </td>
-                    </tr>
-                </table>
-                @endif
-            @endforeach
-        @endif
-        
 
-        @if($progresscomplete > 0)
-            @foreach($data as $i => $item)
-                @if($item['status'] == 'complete')
-                <h4>Complete Task</h4>
+    @if($progresscomplete > 0)
+        <h4>Complete Task</h4>
                     <table id="task">
                         <tr>
                             <th>#</th>
@@ -169,7 +141,8 @@
                             <th>Start Date</th>
                             <th>Status</th>
                         </tr>
-
+            @foreach($data as $i => $item)
+                @if($item['status'] == 'complete')
                         <tr>    
                             <th scope="row">{{ $a++ }}</th>
                             <td>{{ $item['title'] }}</td>
@@ -180,15 +153,13 @@
                             {{ $item['status'] }}
                             </td>
                         </tr>
-                    </table>
                 @endif
             @endforeach
+            </table>
         @endif
 
-        @if($progres > 0)
-            @foreach($data as $i => $item)
-                @if($item['status'] == 'Progres')
-                <h4>Progress Task</h4>
+        @if($progressPending > 0)
+        <h4>Pending Task</h4>
                 <table id="task">
                     <tr>
                         <th>#</th>
@@ -196,8 +167,10 @@
                         <th>Start Date</th>
                         <th>Status</th>
                     </tr>
+            @foreach($data as $i => $item)
+                @if($item['status'] == 'Pending')
                     <tr>
-                        <th scope="row">{{ $i+1 }}</th>
+                        <th scope="row">{{ $p++ }}</th>
                         <td>{{ $item['title'] }}</td>
                         <td>
                         {{ $item['start'] }}
@@ -206,25 +179,53 @@
                         {{ $item['status'] }}
                         </td>
                     </tr>
-                </table>
                 @endif
             @endforeach
+            </table>
+        @endif
+        
+
+        @if($progres > 0)
+            <h4>Progress Task</h4>
+            <table id="task">
+                <tr>
+                    <th>#</th>
+                    <th>Task Name</th>
+                    <th>Start Date</th>
+                    <th>Status</th>
+                </tr>
+            @foreach($data as $i => $item)
+                @if($item['status'] == 'Progres')                
+                    <tr>
+                        <th scope="row">{{ $d++ }}</th>
+                        <td>{{ $item['title'] }}</td>
+                        <td>
+                        {{ $item['start'] }}
+                        </td>
+                        <td>
+                        {{ $item['status'] }}
+                        </td>
+                    </tr>
+                @endif
+            @endforeach
+            </table>
         @endif
         
 
         @if($progressOpen > 0)
+            <h4>Open Task</h4>
+            <table id="task">
+                <tr>
+                    <th>#</th>
+                    <th>Task Name</th>
+                    <th>Start Date</th>
+                    <th>Status</th>
+                </tr>
             @foreach($data as $i => $item)
                 @if($item['status'] == 'Open')
-                <h4>Open Task</h4>
-                <table id="task">
+                
                     <tr>
-                        <th>#</th>
-                        <th>Task Name</th>
-                        <th>Start Date</th>
-                        <th>Status</th>
-                    </tr>
-                    <tr>
-                        <th scope="row">{{ $i+1 }}</th>
+                        <th scope="row">{{ $o++ }}</th>
                         <td>{{ $item['title'] }}</td>
                         <td>
                         {{ $item['start'] }}
@@ -233,9 +234,10 @@
                         {{ $item['status'] }}
                         </td>
                     </tr>
-                </table>
+
                 @endif
             @endforeach
+            </table>
         @endif
     </div>
     <div>

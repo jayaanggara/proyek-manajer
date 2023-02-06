@@ -46,7 +46,7 @@ class UserController extends Controller
         $user->password = Hash::make($request->password);
         $user->roles_id = $request->roles_id;
         $user->save();
-        \Session::flash('notif', ['level' => 'success','message' => 'Data user berhasil disimpan !']);
+        \Session::flash('notif', ['level' => 'success','message' => 'Data Template has been created successfully']);
         return redirect()->route('list-user');
     }
 

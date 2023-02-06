@@ -99,12 +99,13 @@
     </div>
 </div>
 @endif
-@if($data['complete']->count() > 0)
+
+@if($data['Progres']->count() > 0)
 <div class="card-body">
-    <h2 class="h6 d-inline-block text-dark pr-2" style="top: -5px;position: relative;">Complete Task List</h2>
+    <h2 class="h6 d-inline-block text-dark pr-2" style="top: -5px;position: relative;">Progress Task List</h2>
     @if(Auth::user()->role->name != 'Staff' && Auth::user()->role->name != 'Client')
-    <a href="{{ route('task.export-task') }}?status=complete&proyek={{ request('proyek') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mb-3">
-        Export Task complete
+    <a href="{{ route('task.export-task') }}?status=Progres&proyek={{ request('proyek') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mb-3">
+        Export Task Progress
     </a>
     @endif
     <div class="table-responsive">
@@ -126,7 +127,7 @@
                 </tr>
             </tfoot>
             <tbody>
-            @foreach($data['complete'] as $i => $item)
+            @foreach($data['Progres'] as $i => $item)
             <tr class="
             @if($future == $item['deadline'])
             bg-danger text-white
@@ -171,6 +172,7 @@
     </div>
 </div>
 @endif
+
 
 @if($data['Pending']->count() > 0)
 <div class="card-body">
@@ -245,12 +247,12 @@
 </div>
 @endif
 
-@if($data['Progres']->count() > 0)
+@if($data['complete']->count() > 0)
 <div class="card-body">
-    <h2 class="h6 d-inline-block text-dark pr-2" style="top: -5px;position: relative;">Progress Task List</h2>
+    <h2 class="h6 d-inline-block text-dark pr-2" style="top: -5px;position: relative;">Complete Task List</h2>
     @if(Auth::user()->role->name != 'Staff' && Auth::user()->role->name != 'Client')
-    <a href="{{ route('task.export-task') }}?status=Progress&proyek={{ request('proyek') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mb-3">
-        Export Task Progress
+    <a href="{{ route('task.export-task') }}?status=complete&proyek={{ request('proyek') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mb-3">
+        Export Task complete
     </a>
     @endif
     <div class="table-responsive">
@@ -272,7 +274,7 @@
                 </tr>
             </tfoot>
             <tbody>
-            @foreach($data['Progres'] as $i => $item)
+            @foreach($data['complete'] as $i => $item)
             <tr class="
             @if($future == $item['deadline'])
             bg-danger text-white

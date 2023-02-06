@@ -66,7 +66,6 @@ class ProyekController extends Controller
         // dd($request->all());
         $validated = $request->validate([
             'project_name' => 'required',
-            'project_description' => 'required',
             'status' => 'required',
             'logo' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
             'start_date' => 'required',
@@ -142,7 +141,7 @@ class ProyekController extends Controller
         // $RelationsProjectTypes->project_type_id = $request->proyek_type;
         // $RelationsProjectTypes->save();
 
-        return redirect('proyek')->with('success', 'Data Your Comment has been created successfully');
+        return redirect('proyek')->with('success', 'Data project has been created successfully');
     }
 
     /**
@@ -235,7 +234,7 @@ class ProyekController extends Controller
 
         $proyek->getStaf()->sync($request->proyek_user);
 
-        return redirect('proyek')->with('success', 'Data Your Comment has been created successfully');
+        return redirect('proyek')->with('success', 'Data project has been updated successfully');
     }
 
     /**
@@ -247,7 +246,7 @@ class ProyekController extends Controller
     public function destroy($id)
     {
         $data = Proyek::where('id', $id)->delete();
-        \Session::flash('notif', ['level' => 'success','message' => 'Data user berhasil didelete !']);
+        \Session::flash('notif', ['level' => 'success','message' => 'Data project has been deteled successfully']);
         return redirect()->route('proyek.index');
     }
 }

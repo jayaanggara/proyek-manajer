@@ -43,8 +43,11 @@
                 <td>{{ $item['name'] }}</td>
                 <td>{{ $item['deskripsi'] }}</td>
                 <td>
-                    <a href="{{ route('roles.edit', $item->id) }}" class="btn btn-warning">Edit</a>
-                    <a href="{{ route('delete-user', $item->id) }}" class="btn btn-danger">Delete</a>
+                    <form action="{{ route('template.destroy', $item->id) }}" class="d-inline-block" method="post">
+                        @csrf
+                        <button class="btn btn-danger">Delete</button>
+                        @method('delete')
+                    </form>
                 </td>
             </tr>
             @endforeach

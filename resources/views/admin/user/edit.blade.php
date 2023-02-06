@@ -28,7 +28,9 @@
             <label for="exampleInputPassword1" class="form-label">Role</label>
             <select name="roles_id" id="" class="form-control">
                 @foreach ($data_role as $i => $item)
-                <option value="{{ $item['id'] }}" {{ $item['id'] == $data['roles_id'] ? 'selected' : '' }}>{{ $item['name'] }}</option>
+                    @if($item['name'] != 'Administrator')
+                        <option value="{{ $item['id'] }}" {{ $item['id'] == $data['roles_id'] ? 'selected' : '' }}>{{ $item['name'] }}</option>
+                    @endif
                 @endforeach
             </select>
             @if($errors->has('role'))
@@ -48,10 +50,6 @@
         </div>
     </div>
 
-  <div class="mb-3 form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-  </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 @endsection

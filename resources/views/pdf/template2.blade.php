@@ -33,6 +33,7 @@
     color: white;
     }
 
+    #task tr{background-color: #ff7400b5;}
     #task tr:nth-child(even){background-color: #ff7400;}
 
     #task tr:hover {background-color: #ddd;}
@@ -185,9 +186,7 @@
         
 
         @if($progressOpen > 0)
-            @foreach($data as $i => $item)
-                @if($item['status'] == 'Open')
-                <h4>Open Task</h4>
+        <h4>Open Task</h4>
                 <table id="task">
                     <tr>
                         <th>#</th>
@@ -195,6 +194,9 @@
                         <th>Start Date</th>
                         <th>Status</th>
                     </tr>
+            @foreach($data as $i => $item)
+                @if($item['status'] == 'Open')
+                
                     <tr>
                         <th scope="row">{{ $o++ }}</th>
                         <td>{{ $item['title'] }}</td>
@@ -205,9 +207,10 @@
                         {{ $item['status'] }}
                         </td>
                     </tr>
-                </table>
+                
                 @endif
             @endforeach
+            </table>
         @endif
     </div>
         

@@ -23,39 +23,39 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Users
+                Menu
             </div>
             @if(Auth::user()->role->name == 'Administrator')
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('list-user') }}">
-                    <i class="fas fa-fw fa-chart-area"></i>
+                    <i class="fas fa-fw fa-user-plus"></i>
                     <span>Daftar User</span></a>
             </li>            
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('roles.index') }}">
-                    <i class="fas fa-fw fa-chart-area"></i>
+                    <i class="fas fa-fw fa-list"></i>
                     <span>Daftar Role</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('proyek-type.index') }}">
-                    <i class="fas fa-fw fa-chart-area"></i>
+                    <i class="fas fa-fw fa-sort-amount-down-alt"></i>
                     <span>Daftar Project Type</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('template.index') }}">
-                    <i class="fas fa-fw fa-chart-area"></i>
+                    <i class="fas fa-fw fa-newspaper"></i>
                     <span>Templates</span></a>
             </li>        
             @endif    
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('proyek.index') }}">
-                    <i class="fas fa-fw fa-chart-area"></i>
+                    <i class="fas fa-fw fa-list-alt"></i>
                     <span>Daftar Proyek</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
+                    <i class="fas fa-fw fa-check-square"></i>
                     <span>Type Proyek</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -69,13 +69,13 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('task.index') }}">
-                    <i class="fas fa-fw fa-chart-area"></i>
+                    <i class="fas fa-fw fa-tasks"></i>
                     <span>List Task</span></a>
             </li>
             @if(Auth::user()->role->name != 'Staff' && Auth::user()->role->name != 'Client')
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('reports.index') }}">
-                    <i class="fas fa-fw fa-chart-area"></i>
+                    <i class="fas fa-fw fa-edit"></i>
                     <span>Laporan</span></a>
             </li>
             @endif

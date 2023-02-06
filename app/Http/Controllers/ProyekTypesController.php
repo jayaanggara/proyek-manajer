@@ -41,7 +41,7 @@ class ProyekTypesController extends Controller
             'type_description' => 'required',
         ]);
         ProyekType::create($validated);
-        return redirect('proyek-type')->with('success', 'Data Your Comment has been created successfully');
+        return redirect('proyek-type')->with('success', 'Data Project Type has been created successfully');
     }
 
     /**
@@ -84,7 +84,7 @@ class ProyekTypesController extends Controller
         $proyek_type->type_name = $request->type_name;
         $proyek_type->type_description = $request->type_description;
         $proyek_type->save();
-        return redirect('proyek-type')->with('success', 'Data Your Comment has been created successfully');
+        return redirect('proyek-type')->with('success', 'Data project type has been updated successfully');
     }
 
     /**
@@ -96,7 +96,7 @@ class ProyekTypesController extends Controller
     public function destroy($id)
     {
         $data = ProyekType::where('id', $id)->delete();
-        \Session::flash('notif', ['level' => 'success','message' => 'Data user berhasil didelete !']);
+        \Session::flash('notif', ['level' => 'success','message' => 'Data project type has been deleted successfully']);
         return redirect()->route('proyek-type.index');
     }
 }

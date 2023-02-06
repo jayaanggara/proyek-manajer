@@ -15,16 +15,16 @@ class CreateProjectsTable extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->string('project_name');
-            $table->string('project_description');
+            $table->string('project_name',50);
+            $table->text('project_description')->nullable();
             $table->string('logo');
-            $table->string('status');
+            $table->string('status',50);
             $table->foreignId('user')->unsigned();
             $table->foreignId('client')->unsigned();            
             $table->date('start_date');
             $table->date('end_date');
-            $table->string('site');
-            $table->string('company_name');
+            $table->string('site',50);
+            $table->string('company_name',50);
             $table->foreignId('template_id')->nullable()->unsigned();
             $table->timestamps();
             

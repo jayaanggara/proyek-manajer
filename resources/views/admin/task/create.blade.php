@@ -21,9 +21,9 @@
             <label for="exampleInputPassword1" class="form-label">Status</label>
             <select name="status" id="" class="form-control">
                 <option value="Open">Open</option>
-                <option value="complete">complete</option>
                 <option value="Progres">Progres</option>
                 <option value="Pending">Pending</option>
+                <option value="complete">Complete</option>
             </select>
             @if($errors->has('status'))
             <span>

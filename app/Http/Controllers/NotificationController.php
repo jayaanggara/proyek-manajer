@@ -10,7 +10,7 @@ class NotificationController extends Controller
 {
     public function getNotif() {
         if(Auth::user()->roles_id == 1 || Auth::user()->roles_id == 2) {
-            $data = Notification::with('user')->get();
+            $data = Notification::with('user')->limit(5)->get();
         } else {
             $id = Auth::user()->id;
             $data = Notification::with('user')->whereUserId($id)->get();
